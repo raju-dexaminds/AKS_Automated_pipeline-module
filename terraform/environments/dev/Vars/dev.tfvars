@@ -1,4 +1,4 @@
-location            = "East US"
+location            = "centralus"
 resource_group_name = "rg-aks-dev"
 acr_name            = "acraksdev123"
 aks_name            = "aks-dev-cluster"
