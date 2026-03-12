@@ -38,7 +38,8 @@ jobs:
 
       - name: Build Backend Image
         run: |
-          docker build -f docker/backend.Dockerfile             -t ${{ secrets.ACR_NAME }}.azurecr.io/backend:${{ github.sha }} .
+          docker build -f docker/backend.Dockerfile             
+            -t ${{ secrets.ACR_NAME }}.azurecr.io/backend:${{ github.sha }} .
 
       - name: Push Backend Image
         run: |
@@ -46,7 +47,8 @@ jobs:
 
       - name: Build Frontend Image
         run: |
-          docker build -f docker/frontend.Dockerfile             -t ${{ secrets.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }} .
+          docker build -f docker/frontend.Dockerfile             
+            -t ${{ secrets.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }} .
 
       - name: Push Frontend Image
         run: |
@@ -54,11 +56,16 @@ jobs:
 
       - name: Get AKS Credentials
         run: |
-          az aks get-credentials             --resource-group ${{ secrets.RESOURCE_GROUP }}             --name ${{ secrets.AKS_CLUSTER }}             --overwrite-existing
+          az aks get-credentials             
+            --resource-group ${{ secrets.RESOURCE_GROUP }}             
+            --name ${{ secrets.AKS_CLUSTER }}             
+            --overwrite-existing
 
       - name: Install Helm
         uses: azure/setup-helm@v3
 
       - name: Deploy Helm Chart
         run: |
-          helm upgrade --install fullstack-app helm/fullstack-chart             --set backend.image=${{ secrets.ACR_NAME }}.azurecr.io/backend:${{ github.sha }}             --set frontend.image=${{ secrets.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
+          helm upgrade --install fullstack-app helm/fullstack-chart             
+            --set backend.image=${{ secrets.ACR_NAME }}.azurecr.io/backend:${{ github.sha }}             
+            --set frontend.image=${{ secrets.ACR_NAME }}.azurecr.io/frontend:${{ github.sha }}
