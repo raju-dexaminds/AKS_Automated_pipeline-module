@@ -142,9 +142,7 @@ jobs:
       - name: Terraform Apply
         run: |
           cd terraform/environments/dev
-          terraform apply \           
-            -var-file=${{ needs.terraform-plan.outputs.tfvars }} \             
-            -auto-approve
+          terraform apply -var-file="./Vars/dev.tfvars" -auto-approve
 
 
   terraform-destroy:
