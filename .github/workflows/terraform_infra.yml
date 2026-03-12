@@ -178,6 +178,4 @@ jobs:
       - name: Terraform Destroy
         run: |
           cd terraform/environments/dev
-          terraform destroy \            
-            -var-file=${{ needs.terraform-plan.outputs.tfvars }} \             
-            -auto-approve
+          terraform destroy -var-file="${{ needs.terraform-plan.outputs.tfvars }}" -auto-approve
