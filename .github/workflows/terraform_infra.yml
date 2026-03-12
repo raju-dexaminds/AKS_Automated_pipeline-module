@@ -96,16 +96,17 @@ jobs:
       - name: Terraform Init
         run: |
           cd terraform/environments/dev
-          terraform init             
-            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}"             
-            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}"             
-            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}"            
+          terraform init \
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \
+            -backend-config="container_name=tfakscontainer" \
             -backend-config="key=${{ github.event.inputs.STATE_FILE }}"
 
       - name: Terraform Plan
         run: |
           cd terraform/environments/dev
-          terraform plan -var-file=${{ github.event.inputs.VAR_FILE }}
+          terraform plan \
+            -var-file=${{ github.event.inputs.VAR_FILE }}
 
 
   terraform-apply:
@@ -132,17 +133,17 @@ jobs:
       - name: Terraform Init
         run: |
           cd terraform/environments/dev
-          terraform init             
-            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}"             
-            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}"             
-            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}"            
+          terraform init \
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \
+            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \
             -backend-config="key=${{ needs.terraform-plan.outputs.state_file }}"
 
       - name: Terraform Apply
         run: |
           cd terraform/environments/dev
-          terraform apply             
-            -var-file=${{ needs.terraform-plan.outputs.tfvars }}             
+          terraform apply \           
+            -var-file=${{ needs.terraform-plan.outputs.tfvars }} \             
             -auto-approve
 
 
@@ -170,15 +171,15 @@ jobs:
       - name: Terraform Init
         run: |
           cd terraform/environments/dev
-          terraform init             
-            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}"             
-            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}"             
-            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}"           
+          terraform init \         
+            -backend-config="resource_group_name=${{ secrets.TF_STATE_RG }}" \             
+            -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE }}" \             
+            -backend-config="container_name=${{ secrets.TF_STATE_CONTAINER }}" \           
             -backend-config="key=${{ needs.terraform-plan.outputs.state_file }}"
 
       - name: Terraform Destroy
         run: |
           cd terraform/environments/dev
-          terraform destroy             
-            -var-file=${{ needs.terraform-plan.outputs.tfvars }}             
+          terraform destroy \             
+            -var-file=${{ needs.terraform-plan.outputs.tfvars }} \             
             -auto-approve
