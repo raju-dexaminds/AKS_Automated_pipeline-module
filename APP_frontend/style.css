@@ -1,0 +1,30 @@
+body {
+  background: #f4f4f4;
+  font-family: Arial;
+}
+
+.form-container {
+  width: 300px;
+  margin: 80px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+input, button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#message {
+  margin-top: 10px;
+  color: red;
+}

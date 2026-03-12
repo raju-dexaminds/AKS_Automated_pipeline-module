@@ -1,0 +1,7 @@
+backend:
+  image: acraksprod123.azurecr.io/backend:latest
+  replicaCount: 2
+
+frontend:
+  image: acraksprod123.azurecr.io/frontend:latest
+  replicaCount: 2
